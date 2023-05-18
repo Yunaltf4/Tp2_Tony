@@ -1,0 +1,411 @@
+/* palette de couleur */
+:root {
+    --titre-premier: rgba(35, 35, 164, 1);
+    --titre-deuxieme: rgba(0, 146, 255, 1);
+    --titre-troisieme: rgba(8, 0, 142, 1);
+
+    --vert-un: #3da423;
+    --vert-deux: #38ff00;
+    --vert-trois: #168e00;
+}
+
+/* animation*/
+@keyframes monter-texte {
+    from {
+        translate: 0vh 100vh;
+    }
+
+    to {
+        translate: 0vh 0vh;
+    }
+}
+
+@keyframes apparition-texte {
+    from {
+        rotate: -360deg;
+    }
+
+    to {
+        rotate: 0deg;
+    }
+
+}
+
+@keyframes flotter {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.8);
+        transform: translatey(0px);
+    }
+
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.4);
+        transform: translatey(-20px);
+    }
+
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.8);
+        transform: translatey(0px);
+    }
+}
+
+@keyframes changement-couleur {
+
+    0%,
+    100% {
+        color: var(--titre-premier);
+    }
+
+    25% {
+        color: var(--titre-deuxieme);
+    }
+
+    75% {
+        color: var(--titre-troisieme);
+    }
+
+}
+
+@keyframes changement-couleur-fond {
+
+    0%,
+    100% {
+        background-color: var(--titre-premier);
+    }
+
+    25% {
+        background-color: var(--titre-deuxieme);
+    }
+
+    75% {
+        background-color: var(--titre-troisieme);
+    }
+}
+
+@keyframes bonne-reponse-animation {
+
+    from,
+    to {
+        transform: translateY(0);
+    }
+
+    20%,
+    60% {
+        transform: translateY(3rem);
+    }
+
+    40%,
+    80% {
+        transform: translateY(-3rem);
+    }
+}
+
+@keyframes mauvaise-reponse-animation {
+
+    from,
+    to {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(3rem);
+    }
+
+    40%,
+    80% {
+        transform: translateX(-3rem);
+    }
+}
+
+/*mise en page de l'intro*/
+.titre-intro {
+    padding: 5%;
+    border: 4px solid white;
+    border-radius: 40px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 4rem;
+    text-shadow: black 1px 0 10px;
+    animation: monter-texte 2s, apparition-texte 2s, flotter 6s ease-in-out infinite, changement-couleur 4s linear infinite backwards, changement-couleur-fond 10s infinite backwards;
+    box-shadow: inset 0 0 20px 1px rgba(255, 255, 255, 1);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+h1 {
+    padding: 2%;
+    outline: solid 1px grey;
+    border-radius: 20px;
+    animation: monter-texte 1s, flotter 4s ease-in-out infinite;
+}
+
+footer {
+    animation: monter-texte 1s 1.5s backwards;
+}
+
+
+/* mise en page des questions */
+main.quiz {
+    height: 100%;
+    flex-direction: column;
+    display: none;
+}
+
+header {
+    font-size: 4rem;
+    text-shadow: 3px 3px 3px #000000;
+    animation: changement-couleur 3s infinite;
+}
+
+/* La barre qui illustre l'avancement du quiz */
+.barre-avancement {
+    width: 0vw;
+    height: 2vh;
+    background-color: white;
+    justify-content: flex-start;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+}
+
+.barre-avancement-fond {
+    background-color: rgba(71, 71, 71, 0.4);
+    width: 100vw;
+    height: 2vh;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+section .titre-question {
+    font-size: 1.5rem;
+    width: 90%;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.choix {
+    font-size: 1.5rem;
+    width: 80vmin;
+    height: 20vmin;
+    color: black;
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.8);
+    transition: transform 0.5s, color 0.5s, background-color 0.5s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: rgba(183, 193, 172, 0.493);
+
+}
+
+div.choix:hover {
+    background-color: blue;
+    color: white;
+    text-shadow: 3px 3px 3px #000000;
+}
+
+div.choix:active {
+    background-color: blueviolet;
+    color: white;
+    text-shadow: 3px 3px 3px #000000;
+}
+
+div.choix.bonne-reponse {
+    outline: 3px solid #18FF08;
+    outline-offset: -4px;
+    background-color: green;
+    animation: bonne-reponse-animation 0.7s ease-in-out;
+}
+
+div.choix.mauvaise-reponse {
+    outline: 3px solid #FF2929;
+    background-color: rgb(66, 2, 2);
+    outline-offset: -4px;
+    animation: mauvaise-reponse-animation 0.7s ease-in-out;
+}
+
+/*mise en page de la fin */
+main.fin {
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    opacity: 0;
+    flex-direction: column-reverse;
+    transform: translateY(1rem);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+main.fin.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+main.fin section {
+    height: auto;
+}
+
+main.fin div {
+    font-size: 3em;
+    border: 3px solid white;
+    padding: 5% 10% 5% 10%;
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px 1px rgba(255, 255, 255, 1);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    animation: changement-couleur-fond 10s infinite backwards;
+    color: white;
+}
+
+.btn-recommencer {
+    font-size: 5em;
+    color: white;
+    border: 3px solid white;
+    border-radius: 10px;
+    padding: 2%;
+    background-color: blue;
+    box-shadow: inset 0 0 10px 1px rgba(255, 255, 255, 1);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    transition: rotate 1s ease-out, background-color 2s;
+}
+
+.btn-recommencer:hover {
+    rotate: -360deg;
+    background-color: green;
+}
+
+.btn-recommencer:active {
+    background-color: red;
+}
+
+li {
+    color: white;
+    border: 1px solid white;
+    list-style: none;
+    padding: 1rem;
+    box-shadow: inset 0 0 10px 1px rgba(255, 255, 255, 1);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    animation: changement-couleur-fond 10s infinite backwards;
+}
+
+li:first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+li:last-child {
+    border-radius: 0 0 10px 10px;
+}
+
+
+
+/* Styles pour les différents modes */
+.btn-changer-mode {
+    position: absolute;
+    top: 0.5%;
+    left: 1%;
+    z-index: 100;
+}
+
+.light-mode {
+    color: black;
+    text-shadow: 2px 2px 3px white;
+}
+
+.dark-mode {
+    text-shadow: 3px 3px 3px #000000;
+    color: white;
+}
+
+body.active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Style pour les écrans plus larges */
+
+@media screen and (min-width: 576px) {
+
+    /* mise en page de l'intro */
+    .titre-intro {
+        border: 6px solid white;
+        font-size: 6rem;
+    }
+
+    h1 {
+        padding: 4%;
+        outline: solid 3px grey;
+        font-size: 2.5rem;
+    }
+
+    /* mise en page de la partie quiz */
+    header {
+        font-size: 6rem;
+    }
+
+    div.choix {
+        width: 60vw;
+        height: 15vh;
+        font-size: 2.5rem;
+    }
+
+    div.titre-question {
+        font-size: 2.7rem;
+    }
+
+    .btn-changer-mode {
+        scale: 2;
+        top: 2.5%;
+        left: 3%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+
+    /* mise en page de l'intro */
+    .titre-intro {
+        padding: 4%;
+        border: 6px solid white;
+        font-size: 6rem;
+    }
+
+    h1 {
+        padding: 2%;
+        outline: solid 3px grey;
+        font-size: 2.5rem;
+    }
+
+    /* mise en page de la partie quiz */
+    .choix-de-reponse {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;    
+        padding: 4rem 2rem;
+    }
+    div.choix{
+        flex-basis: calc(50% - 0.5em);
+    }
+    /* mise en page de la fin du quiz*/
+    main.fin {
+        flex-direction: row-reverse;
+        justify-content: space-around;
+    }
+    main.fin div{
+        padding: 2% 5% 2% 5%;
+    }  
+    section.scoreBoard{
+        width: 33%;
+    }
+
+}
