@@ -15,18 +15,19 @@ let largeurBarre = 0;
 // la progression dans les questions et le nombre total de questions)
 let largeurCibleBarre = 0;
 
-//point total
+//Point total
 let pointTotal = 0;
 
-//titre animé du quiz intro
+// Titre animé du quiz intro
 let titreIntro = document.querySelector(".titre-intro");
 
+// Variable pour contenir un nombre aléatoire qui sera generer à chaque afficherQuestion
 let indexAleatoire;
 
-//Partie du quiz
+// Partie du quiz
 let partieQuiz = document.querySelector(".quiz");
 
-//partie fin du quiz 
+// Partie fin du quiz 
 let partieFin = document.querySelector(".fin");
 
 // Section contenant une question du quiz et sa position sur l'axe des X
@@ -39,13 +40,13 @@ let lesChoixDeReponses = document.querySelector(".choix-de-reponse");
 
 // Bouton servant à recommencer le quiz
 let btnRecommencer = document.querySelector('main.fin .btn-recommencer');
-
+// La section pour ajouter le pointage final
 let sectionResultat;
-//Tableau vide pour les questions
+// Tableau vide pour les questions
 let questionEnlever = [];
-
+// Le bouton pour changer de mode
 let btnMode = document.querySelector('.btn-changer-mode');
-
+// Selectionne le body
 let body = document.querySelector('body');
 ///// ÉVÉNEMENTS 
 titreIntro.addEventListener("animationend", afficherConsigne);
@@ -59,16 +60,17 @@ btnMode.addEventListener('click',changerMode);
 
 // Afficher les consignes pour commencer le quiz
 
+//Affiche les consignes quand l'animation de monter-texte arrive
 function afficherConsigne(event) {
     if (event.animationName == "monter-texte") {
 
-        //pied de page intro
         let piedPageIntro = document.querySelector("footer");
         piedPageIntro.innerHTML = "<h1>Cliquer pour commencer le quiz</h1>"
 
         window.addEventListener("click", commencerQuiz);
     }
 }
+// Commence le quiz apres avoir cliquer sur le window
 function commencerQuiz() {
     document.querySelector("main.intro").remove();
 
@@ -79,6 +81,7 @@ function commencerQuiz() {
     afficherQuestion();
 
 }
+
 function afficherQuestion() {
 
 
@@ -113,16 +116,17 @@ function afficherQuestion() {
     }
     //push la question qui va être enlever dans le tableau
     questionEnlever.push(questions[indexAleatoire]);
-
+    // PositionY à 100 à chaque fois
     positionY = 100;
 
     //Partir la première requête pour l'animation de la section
     requestAnimationFrame(animerSection);
 
-
+    // Donner le nombre de question restante
     largeurCibleBarre = (noQuestion + 1) / 5 * 100;
-
+    // Appele l'animation de barre Avancement
     requestAnimationFrame(animerBarreAvancement);
+    //  + 1 a la question
     noQuestion++;
 }
 function animerSection() {
@@ -135,7 +139,7 @@ function animerSection() {
         requestAnimationFrame(animerSection);
     }
 }
-
+// Anime la bar jusqua la limite de la largueurCibleBarre
 function animerBarreAvancement() {
 
     largeurBarre += 1;
@@ -147,6 +151,10 @@ function animerBarreAvancement() {
     }
 
 }
+//Vérifie si la réponse est bonne si oui donne 1 point a pointageTotal, joue un son et ajoute la classe bonneReponse
+//sinon joue uyn son et ajoute la class mauvaise-reponse
+//puis enleve la question qui vient de mit du tableau questions
+//enfin attend que l'animation de bonne-reponse ou mauvaise-reponse pour appeler gererProchaineQuestion
 function verifierReponse(event) {
     lesChoixDeReponses.classList.toggle('desactiver');
 
@@ -162,6 +170,8 @@ function verifierReponse(event) {
     questions.splice(indexAleatoire, 1);
     event.target.addEventListener('animationend',gererProchaineQuestion);
 }
+// S'il y a encore des questions dans le tableau questions affiche afficherQuestions
+// sinon afficherFinQuiz
 function gererProchaineQuestion(event) {
 
     if (questions.length > 0) {
@@ -171,15 +181,16 @@ function gererProchaineQuestion(event) {
     }
 
 }
+
 function afficherFinQuiz() {
-
-
+    //Enleve la partieQuiz
     partieQuiz.style.display = "none";
-
+    // Affiche la partieFin
+    partieFin.style.display = "flex";
+    // Créer et ajoute de dans le pointageTotal et ajoute dans main.fin
     sectionResultat = document.createElement('div');
     sectionResultat.innerText = `Votre score ${pointTotal}/5`;
 
-    partieFin.style.display = "flex";
     document.querySelector("main.fin").append(sectionResultat);
 
     // Ajouter le score obtenu au localStorage
@@ -236,14 +247,13 @@ function recommencer() {
     // Ajouter les objets du tableau questionEnlever dans le tableau questions
     questions.push(...questionEnlever);
 
+    // Remet à 0 
     noQuestion = 0;
     largeurBarre = 0;
     largeurCibleBarre = 0;
+    pointTotal = 0;
     // Vider le tableau questionEnlever
     questionEnlever = [];
-
-    // Réinitialiser la variable pointTotal
-    pointTotal = 0;
 
     // Enlever sectionResultat de la page
     sectionResultat.remove();
@@ -255,17 +265,15 @@ function recommencer() {
     partieFin.style.display = "none";
 
     partieFin.classList.remove('active');
-
-    noQuestion = 0;
     // Afficher une nouvelle question
     afficherQuestion();
 }
+// anime la partie fin 
 function animerSectionFin(){
     partieFin.classList.add('active');
 }
+// Change de mode en Nuit ou Jours
 function changerMode() {
-
-
     if (btnMode.textContent === 'light_mode') {
         btnMode.textContent = 'dark_mode';
         btnMode.classList.remove('light-mode');

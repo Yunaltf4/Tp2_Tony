@@ -10,6 +10,7 @@
 }
 
 /* animation*/
+/* animation pour monter */
 @keyframes monter-texte {
     from {
         translate: 0vh 100vh;
@@ -19,7 +20,7 @@
         translate: 0vh 0vh;
     }
 }
-
+/* animation pour tourner */
 @keyframes apparition-texte {
     from {
         rotate: -360deg;
@@ -30,7 +31,7 @@
     }
 
 }
-
+/* animation de flottement */
 @keyframes flotter {
     0% {
         box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.8);
@@ -47,7 +48,7 @@
         transform: translatey(0px);
     }
 }
-
+/* change de couleurs  */
 @keyframes changement-couleur {
 
     0%,
@@ -64,7 +65,7 @@
     }
 
 }
-
+/* change de couleur */
 @keyframes changement-couleur-fond {
 
     0%,
@@ -80,7 +81,7 @@
         background-color: var(--titre-troisieme);
     }
 }
-
+/* animation de haute en bas */
 @keyframes bonne-reponse-animation {
 
     from,
@@ -98,7 +99,7 @@
         transform: translateY(-3rem);
     }
 }
-
+/* animation de gauche a droite  */
 @keyframes mauvaise-reponse-animation {
 
     from,
